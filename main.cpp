@@ -20,6 +20,7 @@ LUA_USING_SHARED_PTR_TYPE(std::shared_ptr)
 using namespace LuaIntf;
 QString* gOut;
 
+
 class Base {
 public:
     virtual void debug() const = 0;
@@ -52,6 +53,12 @@ private:
     std::shared_ptr< Base> _value;
 };
 
+static std::shared_ptr<const A> lua_getA() {
+    // Cast until the lua bridge understands std::shared_ptr<const lc::Layer> as a return value
+    return std::make_shared<const A>("Foo");
+
+}
+
 int main(int argc, char *argv[])
 {
     lua_State* L = luaL_newstate();
@@ -68,7 +75,9 @@ int main(int argc, char *argv[])
     .beginExtendClass <B, Base> ("B")
     .addConstructor(LUA_SP(std::shared_ptr< B>), LUA_ARGS(std::shared_ptr< Base> in))
     .addFunction("debug", &B::debug)
-    .endClass();
+    .endClass()
+
+    .addFunction("getA", &lua_getA);
 
     luaL_openlibs(L);
     int s =luaL_dofile(L, "simple.lua");
