@@ -54,7 +54,6 @@ private:
 };
 
 static std::shared_ptr<const A> lua_getA() {
-    // Cast until the lua bridge understands std::shared_ptr<const lc::Layer> as a return value
     return std::make_shared<const A>("Foo");
 
 }
