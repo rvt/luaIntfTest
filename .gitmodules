@@ -1,0 +1,3 @@
+[submodule "lua-intf"]
+	path = lua-intf
+	url = https://github.com/SteveKChiu/lua-intf
