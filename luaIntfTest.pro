@@ -27,4 +27,5 @@ unix {
 SOURCES += main.cpp
 
 OTHER_FILES += \
-    simple.lua
+    simple.lua \
+    readme.md

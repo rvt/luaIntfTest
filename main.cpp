@@ -40,7 +40,7 @@ private:
 
 class B : public Base {
 public:
-    B(std::shared_ptr<const Base> in) : Base() , _value(in){
+    B(std::shared_ptr< Base> in) : Base() , _value(in){
 
     }
     virtual void debug() const {
@@ -49,7 +49,7 @@ public:
     }
 
 private:
-    std::shared_ptr<const Base> _value;
+    std::shared_ptr< Base> _value;
 };
 
 int main(int argc, char *argv[])
@@ -61,12 +61,12 @@ int main(int argc, char *argv[])
     .endClass()
 
     .beginExtendClass <A, Base> ("A")
-    .addConstructor(LUA_SP(std::shared_ptr< A>), LUA_ARGS(const QString & v))
+    .addConstructor(LUA_SP(std::shared_ptr< A>), LUA_ARGS( QString & v))
     .addFunction("debug", &A::debug)
     .endClass()
 
     .beginExtendClass <B, Base> ("B")
-    .addConstructor(LUA_SP(std::shared_ptr< B>), LUA_ARGS(std::shared_ptr<const Base> in))
+    .addConstructor(LUA_SP(std::shared_ptr< B>), LUA_ARGS(std::shared_ptr< Base> in))
     .addFunction("debug", &B::debug)
     .endClass();
 
